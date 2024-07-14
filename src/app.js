@@ -1,11 +1,14 @@
-const express = require('express')
-const { config } = require('dotenv')
-config()
+const express = require('express');
+const config = require('./config');
+
+const usuarios = require('./modulos/usuarios/rutas')
 
 const app = express();
 
-const port = process.env.PORT || 3000
+//configuracion
+app.set('port', config.app.port)
 
-app.listen(port, () => {
-    console.log(`Servidor iniciado en el puerto ${port}`)
-})
+//rutas
+app.use('/api/usuarios', usuarios)
+
+module.exports = app;
